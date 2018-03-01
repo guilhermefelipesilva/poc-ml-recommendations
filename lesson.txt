@@ -1,0 +1,29 @@
+# Sistemas de Recomendação
+
+> Recuperação direta da informação
+	- Palavras chave
+	- Mais vendidos, mais clicados
+
+> Filtragem por conteúdo
+	- Conteúdos dos itens parecidos
+	- Comparação da descrição de itens
+
+> Filtragem Colaborativa
+	- Baseada nos perfis de usuários
+	- Usuário com gostos parecidos e recomendar o que o outro não viu
+	- Previsão de grau de interesse
+	- Visinhaça de usuários
+	- Perguntar para amigos (manual)
+	- Tarafa coperativa entre os usuários
+	- Troca de experiência entre perfis comuns
+	- Pesquisar grande massa e achar subconjunto menos de mesmo gostos
+	
+	> Passo a passo:
+		1 - Calcular similaridade
+		2 - Calcular recomendação de não assistidos
+
+> Função de Recomendação por similiridade de pessoas e avaliações
+
+> Recomendação
+	- Media ponderada (peso)
+	- Pode-se usar a média das avaliações do usuário a ser recomendado como euristica para indicação
