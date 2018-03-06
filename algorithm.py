@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+import sys
+import os
 from dataset import user_reviews
 from dataset_invert import movie_reviews
 
@@ -49,3 +53,20 @@ def get_recommendations(dataset, user):
     rankings.reverse()
 
     return rankings
+
+
+def loading_movies_lens(path=os.path.abspath(os.path.join(__file__ ,"../..") + "/ml-100k")):
+    movies = dict()
+    for line in open(path + '/u.item'):
+        (id, title) = line.split('|')[0:2]
+        movies[id] = title
+    # print(movies)
+
+    base = {}
+    for line in open(path + '/u.data'):
+        (user, movie_id, rating, evaluation_date) = line.split('\t')
+        base.setdefault(user, {})
+        base[user][movies[movie_id]] = float(rating)
+        
+    print(base)
+    return base
