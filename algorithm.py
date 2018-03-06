@@ -1,43 +1,44 @@
 from dataset import user_reviews
+from dataset_invert import movie_reviews
 
 from math import sqrt
 
-def euclidian (user1, user2):
+def euclidian (dataset, user1, user2):
     similar = {}
 
-    for  item in user_reviews[user1]:
-        if item in user_reviews[user2]: similar['item'] = 1
+    for  item in dataset[user1]:
+        if item in dataset[user2]: similar['item'] = 1
 
     if len(similar) == 0: return 0
 
-    value = sum([pow(user_reviews[user1][item] - user_reviews[user2][item], 2) 
-                    for item in user_reviews[user1] if item in user_reviews[user2]])
+    value = sum([pow(dataset[user1][item] - dataset[user2][item], 2) 
+                    for item in dataset[user1] if item in dataset[user2]])
 
     return 1 / (1 + sqrt(value))
 
 
-def get_similar(user):
-    similar = [(euclidian(user, other), other) 
-                for other in user_reviews if other != user]
+def get_similar(dataset, user):
+    similar = [(euclidian(dataset, user, other), other) 
+                for other in dataset if other != user]
     similar.sort()
     similar.reverse()
     return similar
 
-def get_recommendations(user):
+def get_recommendations(dataset, user):
     totals = {}
     sumSimilar = {}
 
-    for other in user_reviews:
+    for other in dataset:
         if other == user: continue
-        similiar = euclidian(user, other)
+        similiar = euclidian(dataset, user, other)
 
         if similiar <= 0: continue
         
-        for item in user_reviews[other]:
-            if item not in user_reviews[user]:
+        for item in dataset[other]:
+            if item not in dataset[user]:
 
                 totals.setdefault(item, 0)
-                totals[item] += user_reviews[other][item] * similiar
+                totals[item] += dataset[other][item] * similiar
 
                 sumSimilar.setdefault(item, 0)
                 sumSimilar[item] += similiar
